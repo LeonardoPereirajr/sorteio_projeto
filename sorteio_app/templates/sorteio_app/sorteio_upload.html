@@ -1,0 +1,10 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>Realizar Sorteio</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="myfile" required>
+    <button type="submit">Realizar Sorteio</button>
+  </form>
+{% endblock %}
