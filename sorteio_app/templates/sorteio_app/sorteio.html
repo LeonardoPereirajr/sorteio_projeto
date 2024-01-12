@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado do Sorteio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.8/lottie.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1b0404;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .logo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 150px; /* Ajuste a largura conforme necessário */
+            height: auto; /* Isso manterá a proporção da imagem */
+        }
+
+        .animation-container {
+            width: 500px; /* Defina a largura conforme necessário */
+            height: 500px; /* Defina a altura conforme necessário */
+            margin-bottom: 20px;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none; /* Inicialmente, oculta o contêiner de resultado */
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <img class="logo" src="{% static 'C:/Users/leojr/Downloads/sorteio_projeto/sorteio_app/static/sorteio_app/Coroa.png' %}" alt="Logo">
+    <div class="animation-container" id="animation-container"></div>
+    <div class="container" id="resultado-container">
+        <h1>RESULTADO DO SORTEIO</h1>
+        <h2>Parabéns! {{ ganhador }}</h2>
+    </div>
+
+    <script>
+        // Carrega e reproduz a animação Lottie
+        var animation = lottie.loadAnimation({
+            container: document.getElementById('animation-container'),
+            renderer: 'svg',
+            loop: false,
+            autoplay: true,
+            path: "{% static 'C:/Users/leojr/Downloads/sorteio_projeto/sorteio_app/static/sorteio_app/Animation - 1704932233063.json' %}"
+        });
+
+        // Aguarde 5 segundos antes de exibir o resultado
+        setTimeout(function() {
+            // Esconde a animação
+            document.getElementById('animation-container').style.display = 'none';
+
+            // Exibe o resultado
+            document.getElementById('resultado-container').style.display = 'block';
+        }, 3000);
+    </script>
+</body>
+</html>
+
+
