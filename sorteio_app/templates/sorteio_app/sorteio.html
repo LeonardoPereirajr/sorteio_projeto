@@ -24,7 +24,15 @@
             position: absolute;
             top: 10px;
             left: 10px;
-            width: 150px; /* Ajuste a largura conforme necessário */
+            width: 200px; /* Ajuste a largura conforme necessário */
+            height: auto; /* Isso manterá a proporção da imagem */
+        }
+
+        .logo-right {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 200px; /* Ajuste a largura conforme necessário */
             height: auto; /* Isso manterá a proporção da imagem */
         }
 
@@ -74,37 +82,45 @@
     </style>
 </head>
 <body>
-    <img class="logo" src="{% static 'C:/Users/leojr/Downloads/sorteio_projeto/sorteio_app/static/sorteio_app/Coroa.png' %}" alt="Logo">
+    <img class="logo" src="{% static 'C:/Users/leojr/Downloads/sorteio_projeto/sorteio_app/static/sorteio_app/1-preview.png' %}" alt="Logo">
+    <img class="logo-right" src="{% static 'C:/Users/leojr/Downloads/sorteio_projeto/sorteio_app/static/sorteio_app/1-preview.png' %}" alt="Nova_Logo">
     <div class="animation-container" id="animation-container"></div>
     <div class="container" id="resultado-container">
         <h1>RESULTADO DO SORTEIO</h1>
         <h2>Parabéns! {{ ganhador }}</h2>
     </div>
 
-    <form action="{% url 'sorteio_upload' %}" method="post" enctype="multipart/form-data">
+    <form id="uploadForm" action="{% url 'sorteio_upload' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="file" name="myfile" required>
         <button type="submit">Realizar Sorteio</button>
     </form>
-
+    
     <script>
-        // Carrega e reproduz a animação Lottie
-        var animation = lottie.loadAnimation({
-            container: document.getElementById('animation-container'),
-            renderer: 'svg',
-            loop: false,
-            autoplay: true,
-            path: "{% static 'C:/Users/leojr/Downloads/sorteio_projeto/sorteio_app/static/sorteio_app/Animation - 1704932233063.json' %}"
-        });
-
-        // Aguarde 5 segundos antes de exibir o resultado
-        setTimeout(function() {
-            // Esconde a animação
-            document.getElementById('animation-container').style.display = 'none';
-
-            // Exibe o resultado
-            document.getElementById('resultado-container').style.display = 'block';
-        }, 3000);
+        document.getElementById('uploadForm').onsubmit = function() {
+            // Carrega e reproduz a animação Lottie
+            var animation = lottie.loadAnimation({
+                container: document.getElementById('animation-container'),
+                renderer: 'svg',
+                loop: false,
+                autoplay: true,
+                path: "{% static 'C:/Users/leojr/Downloads/sorteio_projeto/sorteio_app/static/sorteio_app/Animation - 1704932233063.json' %}"
+            });
+    
+            // Manipula o evento de envio do formulário
+            this.style.display = 'none'; // Oculta o formulário durante o sorteio
+    
+            // Aguarde 5 segundos antes de exibir o resultado (opcional)
+            setTimeout(function() {
+                // Esconde a animação
+                document.getElementById('animation-container').style.display = 'none';
+    
+                // Exibe o resultado
+                document.getElementById('resultado-container').style.display = 'block';
+            }, 5000);
+    
+            return false; // Impede o envio normal do formulário
+        };
     </script>
 </body>
 </html>

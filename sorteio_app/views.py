@@ -33,4 +33,4 @@ def sorteio_upload(request):
         else:
             ganhador = 'Não há nomes para sortear.'
         
-    return sorteio(request)
+    return render(request, 'sorteio_app/sorteio.html', {'ganhador': ganhador})
