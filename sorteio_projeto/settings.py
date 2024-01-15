@@ -39,6 +39,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'sorteio_projeto.urls'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 
 TEMPLATES = [
     {
