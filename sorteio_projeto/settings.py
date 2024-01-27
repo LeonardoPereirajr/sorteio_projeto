@@ -26,7 +26,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'sorteio_app',
 ]
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',  # Ou 'DEBUG' para logs mais detalhados
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

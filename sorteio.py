@@ -4,6 +4,7 @@ import tkinter as tk
 from tkinter import messagebox
 
 def sortear_ganhador(arquivo_csv):
+    print("Sorting")
     with open(arquivo_csv, 'r', encoding='utf-8') as csvfile:
         leitor_csv = csv.reader(csvfile)
         nomes = [linha[0] for linha in leitor_csv]

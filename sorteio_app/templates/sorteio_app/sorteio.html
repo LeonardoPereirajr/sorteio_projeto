@@ -94,11 +94,12 @@
         {% csrf_token %}
         <input type="file" name="myfile" required>
         <button type="submit">Realizar Sorteio</button>
-    </form>
+    </form>  
     
     <script>
-        document.getElementById('uploadForm').onsubmit = function() {
-            // Carrega e reproduz a animação Lottie
+        document.getElementById('uploadForm').onsubmit = function (event) {
+            event.preventDefault(); // Impede o envio normal do formulário
+    
             var animation = lottie.loadAnimation({
                 container: document.getElementById('animation-container'),
                 renderer: 'svg',
@@ -107,11 +108,13 @@
                 path: "{% static 'C:/Users/leojr/Downloads/sorteio_projeto/sorteio_app/static/sorteio_app/Animation - 1704932233063.json' %}"
             });
     
-            // Manipula o evento de envio do formulário
-            this.style.display = 'none'; // Oculta o formulário durante o sorteio
+            // Desabilita o formulário para evitar envios adicionais
+            document.getElementById('uploadForm').querySelectorAll('input, button').forEach(function (element) {
+                element.disabled = true;
+            });
     
             // Aguarde 5 segundos antes de exibir o resultado (opcional)
-            setTimeout(function() {
+            setTimeout(function () {
                 // Esconde a animação
                 document.getElementById('animation-container').style.display = 'none';
     
@@ -119,8 +122,34 @@
                 document.getElementById('resultado-container').style.display = 'block';
             }, 5000);
     
+            var inputFile = this.querySelector('input[type="file"]');
+        if (inputFile.files.length > 0) {
+            console.log("Nome do arquivo:", inputFile.files[0].name);
+        } else {
+            console.log("Nenhum arquivo selecionado.");
+        }
+            
+         // Obtenha o arquivo do input
+         var inputFile = this.querySelector('input[type="file"]');
+        if (inputFile.files.length > 0) {
+            var file = inputFile.files[0];
+
+            // Crie um FormData e adicione o arquivo a ele
+            var formData = new FormData();
+            formData.append('myfile', file);
+
+            // Faça a solicitação fetch para enviar o arquivo
+            fetch("{% url 'sorteio_upload' %}", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'X-CSRFToken': document.getElementsByName('csrfmiddlewaretoken')[0].value
+                }
+            });
+        }
             return false; // Impede o envio normal do formulário
         };
     </script>
+    
 </body>
 </html>

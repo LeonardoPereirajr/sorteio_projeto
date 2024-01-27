@@ -2,9 +2,9 @@
 
 {% block content %}
   <h1>Realizar Sorteio</h1>
-  <form method="post" enctype="multipart/form-data">
+  <form id="uploadForm" action="{% url 'sorteio_upload' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <input type="file" name="myfile" required>
     <button type="submit">Realizar Sorteio</button>
-  </form>
+</form>
 {% endblock %}
